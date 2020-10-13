@@ -20,6 +20,11 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
   private GroundOverlayOptions groundOverlayOptions;
   private GroundOverlay groundOverlay;
   private LatLngBounds bounds;
+  private LatLng location;
+  private float width;
+  private float height;
+  private float bearing;
+  private float[] anchor;
   private BitmapDescriptor iconBitmapDescriptor;
   private Bitmap iconBitmap;
   private boolean tappable;
@@ -41,6 +46,26 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
     if (this.groundOverlay != null) {
       this.groundOverlay.setPositionFromBounds(this.bounds);
     }
+  }
+
+  public void setLocation(ReadableArray location){
+    this.location = new LatLng(location.getDouble(0), location.getDouble(1));
+  }
+
+  public void setWidth(float width) {
+    this.width = width;
+  }
+
+  public void setHeight(float height) {
+    this.height = height;
+  }
+
+  public void setBearing(float bearing){
+    this.bearing = bearing;
+  }
+
+  public void setAnchor(ReadableArray anchor){
+    this.anchor = new float[]{ (float)anchor.getDouble(0) , (float)anchor.getDouble(1) };
   }
 
   public void setZIndex(float zIndex) {
@@ -91,6 +116,20 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
       options.visible(false);
     }
     options.positionFromBounds(bounds);
+
+    // Two different ways of specifying postion of the groundOverlay
+    if(this.location != null){
+      if(this.height == 0.0f){
+        options.position(location, width);
+      } else {
+        options.position(location, width, height);
+      }
+      options.anchor(anchor[0], anchor[1]);
+      options.bearing(bearing);
+    } else {
+      options.positionFromBounds(bounds);
+    }
+    
     options.zIndex(zIndex);
     return options;
   }

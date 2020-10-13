@@ -20,6 +20,7 @@
 @property (nonatomic, copy) NSArray *boundsRect;
 @property (nonatomic, assign) CGFloat opacity;
 @property (nonatomic, readonly) GMSCoordinateBounds *overlayBounds;
+@property (nonatomic, readonly) CLLocationDirection bearing;
 
 @property (nonatomic, weak) RCTBridge *bridge;
 

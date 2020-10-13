@@ -19,5 +19,6 @@ RCT_EXPORT_MODULE()
 RCT_REMAP_VIEW_PROPERTY(bounds, boundsRect, NSArray)
 RCT_REMAP_VIEW_PROPERTY(image, imageSrc, NSString)
 RCT_REMAP_VIEW_PROPERTY(opacity, opacity, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(bearing, double)
 
 @end
